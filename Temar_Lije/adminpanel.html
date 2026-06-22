@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Temar Lije</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url(Images/image7.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    z-index: 1;
+    background:transparent;
+    backdrop-filter: blur(1px);
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 { font-size: 22px; }
+
+header span {
+    font-size: 13px;
+    opacity: 0.8;
+    color: lightgreen;
+}
+
+
+.tabs {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 24px;
+    border-radius: 40px;
+    border: 2px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+}
+
+.tab-btn:hover { background: rgba(255,255,255,0.2); }
+
+.tab-btn.active {
+    background: silver;
+    color: green;
+    font-weight: 700;
+    border-color: silver;
+}
+
+section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    width: 85%;
+    margin: 10px auto 30px;
+    padding: 30px 40px;
+    color: white;
+    display: none;
+}
+
+section.active { display: block; }
+
+h2 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.stat-cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 130px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-card .value {
+    font-size: 30px;
+    font-weight: 700;
+    color: lightgreen;
+}
+
+.stat-card .label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 6px;
+}
+
+
+.search-bar {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.12);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.search-bar::placeholder { color: rgba(255,255,255,0.6); }
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table th {
+    text-align: left;
+    padding: 12px 14px;
+    background: rgba(0,100,0,0.45);
+    color: lightgreen;
+    font-size: 13px;
+}
+
+table th:first-child { border-radius: 10px 0 0 10px; }
+table th:last-child  { border-radius: 0 10px 10px 0; }
+
+table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    opacity: 0.9;
+}
+
+table tr:hover td { background: rgba(255,255,255,0.07); }
+
+.badge {
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge.excellent { background: rgba(0,200,0,0.3);   color: lightgreen; }
+.badge.good      { background: rgba(0,150,255,0.3); color: lightblue; }
+.badge.average   { background: rgba(255,165,0,0.3); color: orange; }
+.badge.active    { background: rgba(0,200,0,0.3);   color: lightgreen; }
+.badge.inactive  { background: rgba(255,80,80,0.3); color: tomato; }
+.badge.pending   { background: rgba(255,165,0,0.3); color: orange; }
+
+
+.mini-bar {
+    background: rgba(255,255,255,0.15);
+    height: 8px;
+    border-radius: 20px;
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.mini-fill {
+    height: 8px;
+    border-radius: 20px;
+    background: lightgreen;
+}
+
+.mini-fill.warning { background: orange; }
+.mini-fill.danger  { background: tomato; }
+
+/* ACTION BUTTONS */
+.action-btn {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.action-btn.view    { background: rgba(0,150,255,0.4); color: white; }
+.action-btn.remove  { background: rgba(255,80,80,0.4); color: white; }
+.action-btn.approve { background: rgba(0,200,0,0.4);   color: white; }
+
+/* MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+    background: rgba(10,40,10,0.92);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 30px 40px;
+    width: 480px;
+    color: white;
+    position: relative;
+}
+
+.modal h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: lightgreen;
+    text-align: center;
+}
+
+.modal-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+}
+
+.modal-row .key   { opacity: 0.7; }
+.modal-row .val   { color: lightgreen; font-weight: 600; }
+
+.modal-close {
+    position: absolute;
+    top: 14px; right: 18px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.modal-close:hover { opacity: 1; }
+
+.modal-subject {
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.modal-subject-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    opacity: 0.85;
+}
+
+.modal-bar {
+    background: rgba(255,255,255,0.15);
+    height: 10px;
+    border-radius: 20px;
+}
+
+.modal-bar-fill {
+    height: 10px;
+    border-radius: 20px;
+    background: lightgreen;
+}
+
+.modal-bar-fill.warning { background: orange; }
+.modal-bar-fill.danger  { background: tomato; }
+
+footer {
+    position: relative;
+    z-index: 1;
+    background: rgba(0,100,0,0.55);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid rgba(255,255,255,0.3);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Temar Lije — Admin Panel</h2>
+    <span>Admin</span>
+</header>
+
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab('overview')">📊 Overview</button>
+    <button class="tab-btn"       onclick="showTab('students')">🎓 Students</button>
+    <button class="tab-btn"       onclick="showTab('tutors')">👨‍🏫 Tutors</button>
+    <button class="tab-btn"       onclick="showTab('sessions')">📅 Sessions</button>
+    <button class="tab-btn"       onclick="showTab('payments')">💳 Payments</button>
+</div>
+
+<section id="overview" class="active">
+    <h2> Platform Overview</h2>
+    <div class="stat-cards">
+        <div class="stat-card">
+            <div class="value">124</div>
+            <div class="label">Total Students</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">18</div>
+            <div class="label">Active Tutors</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">342</div>
+            <div class="label">Sessions Completed</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">87%</div>
+            <div class="label">Avg. Student Score</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">63,500</div>
+            <div class="label">Total Revenue (ETB)</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Recent Activity</th>
+                <th>User</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>New student registration</td>
+                <td>Henock Sema</td>
+                <td>Today 09:14 AM</td>
+                <td><span class="badge active">Active</span></td>
+            </tr>
+            <tr>
+                <td>Session booked</td>
+                <td>Yonas Bekele</td>
+                <td>Today 08:50 AM</td>
+                <td><span class="badge active">Confirmed</span></td>
+            </tr>
+            <tr>
+                <td>Payment received</td>
+                <td>Sara Alemu</td>
+                <td>Today 08:30 AM</td>
+                <td><span class="badge excellent">Paid</span></td>
+            </tr>
+            <tr>
+                <td>Tutor application</td>
+                <td>Mr. Daniel G.</td>
+                <td>Yesterday</td>
+                <td><span class="badge pending">Pending</span></td>
+            </tr>
+            <tr>
+                <td>Subscription activated</td>
+                <td>Liya Hailu</td>
+                <td>Yesterday</td>
+                <td><span class="badge excellent">Gold</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<section id="students">
+    <h2>🎓 Student Performance</h2>
+    <input class="search-bar" type="text"
+        placeholder=" Search student by name..."
+        onkeyup="searchTable('studentTable', this.value)">
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Avg. Score</th>
+                <th>Attendance</th>
+                <th>Sessions</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Henock Sema</td>
+                <td>hena@gmail.com</td>
+                <td>
+                    <span class="mini-bar"><span class="mini-fill" style="width:88%"></span></span>88%
+                </td>
+                <td>95%</td>
+                <td>18</td>
+                <td><span class="badge excellent">Excellent</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewStudent('Hena Tadesse','hena@gmail.com','88%','95%','18','Excellent',
+                        [['Mathematics',85,''],['Physics',72,'warning'],['Chemistry',90,''],['English',60,'danger'],['Programming',95,'']])">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Beemnet Mulugeta</td>
+                <td>bemni@gmail.com</td>
+                <td>
+                    <span class="mini-bar"><span class="mini-fill warning" style="width:74%"></span></span>74%
+                </td>
+                <td>88%</td>
+                <td>12</td>
+                <td><span class="badge good">Good</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewStudent('Yonas Bekele','yonas@gmail.com','74%','88%','12','Good',
+                        [['Mathematics',70,'warning'],['Physics',78,''],['Chemistry',65,'warning'],['English',80,''],['Programming',74,'warning']])">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Julia Abreham</td>
+                <td>juli@gmail.com</td>
+                <td>
+                    <span class="mini-bar"><span class="mini-fill" style="width:92%"></span></span>92%
+                </td>
+                <td>98%</td>
+                <td>24</td>
+                <td><span class="badge excellent">Excellent</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewStudent('Sara Alemu','sara@gmail.com','92%','98%','24','Excellent',
+                        [['Mathematics',95,''],['Physics',90,''],['Chemistry',88,''],['English',94,''],['Programming',92,'']])">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Mekdes Tilahun</td>
+                <td>MekdiT@gmail.com</td>
+                <td>
+                    <span class="mini-bar"><span class="mini-fill danger" style="width:58%"></span></span>58%
+                </td>
+                <td>75%</td>
+                <td>8</td>
+                <td><span class="badge average">Average</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewStudent('Liya Hailu','liya@gmail.com','58%','75%','8','Average',
+                        [['Mathematics',55,'danger'],['Physics',60,'danger'],['Chemistry',58,'danger'],['English',62,'warning'],['Programming',55,'danger']])">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Henock Agegnehu</td>
+                <td>henock@gmail.com</td>
+                <td>
+                    <span class="mini-bar"><span class="mini-fill" style="width:81%"></span></span>81%
+                </td>
+                <td>90%</td>
+                <td>15</td>
+                <td><span class="badge good">Good</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewStudent('Henock Agegnehu','henock@gmail.com','81%','90%','15','Good',
+                        [['Mathematics',85,''],['Physics',80,''],['Chemistry',75,'warning'],['English',82,''],['Programming',83,'']])">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<section id="tutors">
+    <h2>Tutor Performance</h2>
+    <input class="search-bar" type="text"
+        placeholder="🔍 Search tutor by name..."
+        onkeyup="searchTable('tutorTable', this.value)">
+
+    <table id="tutorTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Rating</th>
+                <th>Sessions</th>
+                <th>Students</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mr. Abebe Kebede</td>
+                <td>Mathematics</td>
+                <td>⭐ 4.8</td>
+                <td>142</td>
+                <td>38</td>
+                <td><span class="badge active">Active</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewTutor('Mr. Abebe Kebede','Mathematics','4.8','142','38','Active','6 Years','500 ETB/hr')">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Ms. Sara Girma</td>
+                <td>Physics</td>
+                <td>⭐ 4.5</td>
+                <td>98</td>
+                <td>24</td>
+                <td><span class="badge active">Active</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewTutor('Ms. Sara Girma','Physics','4.5','98','24','Active','4 Years','450 ETB/hr')">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Mr. Daniel Getnet</td>
+                <td>Chemistry</td>
+                <td>⭐ 4.7</td>
+                <td>115</td>
+                <td>30</td>
+                <td><span class="badge pending">Pending</span></td>
+                <td>
+                    <button class="action-btn approve"
+                        onclick="approveTutor(this)">
+                        Approve
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Ms. Liya Tesfaye</td>
+                <td>English</td>
+                <td>⭐ 4.9</td>
+                <td>160</td>
+                <td>42</td>
+                <td><span class="badge active">Active</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewTutor('Ms. Liya Tesfaye','English','4.9','160','42','Active','8 Years','480 ETB/hr')">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Mr. Yonas Tadesse</td>
+                <td>Programming</td>
+                <td>⭐ 4.6</td>
+                <td>87</td>
+                <td>20</td>
+                <td><span class="badge inactive">Inactive</span></td>
+                <td>
+                    <button class="action-btn view"
+                        onclick="viewTutor('Mr. Yonas Tadesse','Programming','4.6','87','20','Inactive','3 Years','550 ETB/hr')">
+                        View
+                    </button>
+                    <button class="action-btn remove" onclick="removeRow(this)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="sessions">
+    <h2>📅 All Sessions</h2>
+    <input class="search-bar" type="text"
+        placeholder="🔍 Search by student or tutor..."
+        onkeyup="searchTable('sessionTable', this.value)">
+
+    <table id="sessionTable">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Tutor</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Henock Sema</td>
+                <td>Mr. Abebe</td>
+                <td>Mathematics</td>
+                <td>June 18, 2026</td>
+                <td>Online</td>
+                <td><span class="badge excellent">Completed</span></td>
+            </tr>
+            <tr>
+                <td>Beemnet Mulugeta</td>
+                <td>Ms. Sara</td>
+                <td>Physics</td>
+                <td>June 17, 2026</td>
+                <td>In-Person</td>
+                <td><span class="badge excellent">Completed</span></td>
+            </tr>
+            <tr>
+                <td>Julia Abreham</td>
+                <td>Ms. Liya</td>
+                <td>English</td>
+                <td>June 20, 2026</td>
+                <td>Online</td>
+                <td><span class="badge active">Live</span></td>
+            </tr>
+            <tr>
+                <td>mekdes Tilahun</td>
+                <td>Mr. Abebe</td>
+                <td>Mathematics</td>
+                <td>June 22, 2026</td>
+                <td>Online</td>
+                <td><span class="badge pending">Upcoming</span></td>
+            </tr>
+            <tr>
+                <td>Henock Agegnehu</td>
+                <td>Mr. Yonas</td>
+                <td>Programming</td>
+                <td>June 15, 2026</td>
+                <td>Online</td>
+                <td><span class="badge excellent">Completed</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="payments">
+    <h2>💳 Payment Records</h2>
+    <input class="search-bar" type="text"
+        placeholder="🔍 Search by name or package..."
+        onkeyup="searchTable('paymentTable', this.value)">
+
+    <table id="paymentTable">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Package</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Henock Sema</td>
+                <td>Gold Package</td>
+                <td>1,500 ETB</td>
+                <td>Telebirr</td>
+                <td>June 1, 2026</td>
+                <td><span class="badge excellent">Paid</span></td>
+            </tr>
+            <tr>
+                <td>Beemnet Mulugeta</td>
+                <td>Silver Package</td>
+                <td>1,000 ETB</td>
+                <td>CBE Birr</td>
+                <td>June 3, 2026</td>
+                <td><span class="badge excellent">Paid</span></td>
+            </tr>
+            <tr>
+                <td>julia Abreham</td>
+                <td>Platinum Package</td>
+                <td>2,500 ETB</td>
+                <td>Bank Transfer</td>
+                <td>June 5, 2026</td>
+                <td><span class="badge excellent">Paid</span></td>
+            </tr>
+            <tr>
+                <td>Mekdes Tilahun</td>
+                <td>Bronze Package</td>
+                <td>500 ETB</td>
+                <td>Telebirr</td>
+                <td>June 10, 2026</td>
+                <td><span class="badge pending">Pending</span></td>
+            </tr>
+            <tr>
+                <td>Henock Agegnehu</td>
+                <td>Gold Package</td>
+                <td>1,500 ETB</td>
+                <td>CBE Birr</td>
+                <td>June 12, 2026</td>
+                <td><span class="badge excellent">Paid</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="modal-overlay" id="studentModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('studentModal')">✕</button>
+        <h3 id="modal-name">Student Name</h3>
+
+        <div class="modal-row">
+            <span class="key">Email</span>
+            <span class="val" id="modal-email"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Average Score</span>
+            <span class="val" id="modal-score"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Attendance</span>
+            <span class="val" id="modal-attendance"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Sessions Completed</span>
+            <span class="val" id="modal-sessions"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Overall Status</span>
+            <span class="val" id="modal-status"></span>
+        </div>
+
+        <p style="margin: 16px 0 10px; font-size:14px; opacity:0.8;">
+            Subject Breakdown
+        </p>
+        <div id="modal-subjects"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="tutorModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('tutorModal')">✕</button>
+        <h3 id="tmodal-name">Tutor Name</h3>
+
+        <div class="modal-row">
+            <span class="key">Subject</span>
+            <span class="val" id="tmodal-subject"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Rating</span>
+            <span class="val" id="tmodal-rating"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Sessions Conducted</span>
+            <span class="val" id="tmodal-sessions"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Students Taught</span>
+            <span class="val" id="tmodal-students"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Experience</span>
+            <span class="val" id="tmodal-exp"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Rate</span>
+            <span class="val" id="tmodal-rate"></span>
+        </div>
+        <div class="modal-row">
+            <span class="key">Status</span>
+            <span class="val" id="tmodal-status"></span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Temar Lje Tutor Center</p>
+</footer>
+
+<script>
+
+function showTab(tabId) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+    event.target.classList.add("active");
+}
+
+
+function searchTable(tableId, query) {
+    let rows = document.querySelectorAll("#" + tableId + " tbody tr");
+    query = query.toLowerCase();
+    rows.forEach(row => {
+        row.style.display =
+            row.innerText.toLowerCase().includes(query) ? "" : "none";
+    });
+}
+
+
+function viewStudent(name, email, score, attendance, sessions, status, subjects) {
+    document.getElementById("modal-name").innerHTML       = name;
+    document.getElementById("modal-email").innerHTML      = email;
+    document.getElementById("modal-score").innerHTML      = score;
+    document.getElementById("modal-attendance").innerHTML = attendance;
+    document.getElementById("modal-sessions").innerHTML   = sessions;
+    document.getElementById("modal-status").innerHTML     = status;
+
+    let html = "";
+    subjects.forEach(s => {
+        html += `
+        <div class="modal-subject">
+            <div class="modal-subject-header">
+                <span>${s[0]}</span><span>${s[1]}%</span>
+            </div>
+            <div class="modal-bar">
+                <div class="modal-bar-fill ${s[2]}" style="width:${s[1]}%"></div>
+            </div>
+        </div>`;
+    });
+
+    document.getElementById("modal-subjects").innerHTML = html;
+    document.getElementById("studentModal").classList.add("open");
+}
+
+
+function viewTutor(name, subject, rating, sessions, students, status, exp, rate) {
+    document.getElementById("tmodal-name").innerHTML    = name;
+    document.getElementById("tmodal-subject").innerHTML = subject;
+    document.getElementById("tmodal-rating").innerHTML  = "⭐ " + rating;
+    document.getElementById("tmodal-sessions").innerHTML = sessions;
+    document.getElementById("tmodal-students").innerHTML = students;
+    document.getElementById("tmodal-status").innerHTML  = status;
+    document.getElementById("tmodal-exp").innerHTML     = exp;
+    document.getElementById("tmodal-rate").innerHTML    = rate;
+    document.getElementById("tutorModal").classList.add("open");
+}
+
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+}
+
+
+function approveTutor(btn) {
+    let td = btn.parentElement;
+    let statusTd = td.previousElementSibling;
+    statusTd.innerHTML = '<span class="badge active">Active</span>';
+    btn.outerHTML = `<button class="action-btn view">View</button>`;
+    alert("Tutor approved successfully!");
+}
+
+
+function removeRow(btn) {
+    if (confirm("Are you sure you want to remove this record?")) {
+        btn.closest("tr").remove();
+    }
+}
+</script>
+
+</body>
+</html>

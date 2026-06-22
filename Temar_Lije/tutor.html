@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutor Profile - Temar Lije</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url(Images/image1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 { font-size: 22px; }
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+nav a:hover { text-decoration: underline; }
+
+section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    width: 65%;
+    margin: 30px auto;
+    padding: 30px 40px;
+    color: white;
+}
+
+h2 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* PROFILE HEADER */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: transparent;
+    border: 3px solid lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.profile-info h3 {
+    font-size: 22px;
+    color: white;
+    margin-bottom: 6px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 4px;
+}
+
+.profile-info .rating {
+    color: gold;
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+.available-badge {
+    display: inline-block;
+    background: rgba(0,200,0,0.3);
+    color: lightgreen;
+    border: 1px solid lightgreen;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+/* INFO ROWS */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #fff;
+    font-size: 14px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-row .info-label {
+    opacity: 0.7;
+}
+
+.info-row .info-value {
+    color: lightgreen;
+    font-weight: 600;
+}
+
+/* SUBJECTS */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tag {
+    background: rgba(0,150,0,0.35);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* ONBOARDING FORM */
+label {
+    display: block;
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 12px 0 4px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 40px;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 4px;
+}
+
+textarea {
+    border-radius: 14px;
+    height: 100px;
+    resize: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+select option { background: #1a4a1a; }
+
+button {
+    width: 100%;
+    height: 48px;
+    background: white;
+    color: green;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+}
+
+button:hover { background: #e6ffe6; }
+
+.success {
+    text-align: center;
+    color: lightgreen;
+    font-weight: 600;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(2px);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Temar Lije</h2>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="progress.html">Progress</a>
+        <a href="home_page.html">Logout</a>
+    </nav>
+</header>
+
+<!-- TUTOR PROFILE VIEW -->
+<section>
+    <h2>Tutor Profile</h2>
+
+    <div class="profile-header">
+        <div class="avatar">MA</div>
+        <div class="profile-info">
+            <h3>Mr. Abebe Kebede</h3>
+            <p>📍 Addis Ababa, Ethiopia</p>
+            <p>🎓 MSc Mathematics — Addis Ababa University</p>
+            <div class="rating">⭐⭐⭐⭐⭐ <span style="color:white; font-size:14px;">4.8 / 5</span></div>
+            <span class="available-badge">✅ Available</span>
+        </div>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Experience</span>
+        <span class="info-value">6 Years</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Sessions Completed</span>
+        <span class="info-value">142</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Session Type</span>
+        <span class="info-value">Online & In-Person</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Rate</span>
+        <span class="info-value">500 ETB / hour</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Languages</span>
+        <span class="info-value">Amharic, English</span>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <p style="opacity:0.8; font-size:14px; margin-bottom:10px;">Subjects</p>
+        <div class="tags">
+            <span class="tag">Mathematics</span>
+            <span class="tag">Statistics</span>
+            <span class="tag">Physics</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <p style="opacity:0.8; font-size:14px; margin-bottom:8px;">About</p>
+        <p style="font-size:14px; opacity:0.85; line-height:1.7;">
+            Passionate educator with 6 years of experience helping
+            students master mathematics and sciences. I focus on
+            building strong fundamentals and problem-solving skills
+            through patient, step-by-step guidance.
+        </p>
+    </div>
+
+    <button onclick="window.location.href='booking.html'">
+        📅 Book a Session with Mr. Abebe
+    </button>
+</section>
+
+<!-- TUTOR ONBOARDING FORM -->
+<section>
+    <h2>Tutor Onboarding Application</h2>
+
+    <form id="tutorForm">
+        <label>Full Name</label>
+        <input type="text" id="tutorName" placeholder="Your full name" required>
+
+        <label>Email</label>
+        <input type="email" id="tutorEmail" placeholder="Your email" required>
+
+        <label>Phone Number</label>
+        <input type="tel" id="tutorPhone" placeholder="Your phone number" required>
+
+        <label>Subject You Teach</label>
+        <select id="tutorSubject">
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>English</option>
+            <option>Programming</option>
+        </select>
+
+        <label>Years of Experience</label>
+        <input type="number" id="tutorExp" placeholder="e.g. 3" min="0" required>
+
+        <label>Session Type</label>
+        <select id="tutorSession">
+            <option>Online</option>
+            <option>In-Person</option>
+            <option>Both</option>
+        </select>
+
+        <label>Rate (ETB per hour)</label>
+        <input type="number" id="tutorRate" placeholder="e.g. 500" required>
+
+        <label>Upload Certificate (optional)</label>
+        <input type="file" id="tutorCert" accept=".pdf,.jpg,.png"
+            style="border-radius:14px; padding:10px 18px;">
+
+        <label>About Yourself</label>
+        <textarea id="tutorBio"
+            placeholder="Briefly describe your teaching approach..."></textarea>
+
+        <button type="submit">Submit Application</button>
+    </form>
+
+    <p class="success" id="tutorMsg"></p>
+</section>
+
+<footer>
+    <p>© 2026 Temar Lje Tutor Center</p>
+</footer>
+
+<script>
+document.getElementById("tutorForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let name = document.getElementById("tutorName").value;
+    document.getElementById("tutorMsg").innerHTML =
+        "Application submitted successfully! Welcome, " + name +
+        ". We will review your profile and get back to you shortly.";
+    this.reset();
+});
+</script>
+
+</body>
+</html>

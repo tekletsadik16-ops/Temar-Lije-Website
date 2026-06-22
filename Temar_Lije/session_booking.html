@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temar Lje Tutor Center</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url(Images/image2.jpg); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:transparent;
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(1px);
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 15px;
+    margin-top: 6px;
+    opacity: 0.9;
+}
+
+section {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    padding: 30px 40px;
+}
+
+h2 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 8px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px 20px;
+    margin: 8px 0 14px;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: rgba(200, 255, 220, 0.2);
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+}
+
+select option {
+    background: #1a4a1a;
+    color: white;
+}
+
+input[type="radio"] {
+    width: auto;
+    margin: 0 10px 0 0;
+    accent-color: lightgreen;
+}
+
+button {
+    width: 100%;
+    height: 48px;
+    background: white;
+    color: green;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #e6ffe6;
+}
+
+.package {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 14px 18px;
+    margin: 10px 0;
+    border-radius: 14px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.package b {
+    font-size: 16px;
+}
+
+.package span {
+    font-size: 13px;
+    opacity: 0.8;
+    display: block;
+}
+
+.success {
+    margin-top: 14px;
+    color: lightgreen;
+    font-weight: 600;
+    text-align: center;
+    font-size: 14px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    color: white;
+}
+
+.dashboard-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: lightgreen;
+}
+
+.dashboard-card .stat-label {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(5px);
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Temar Lije Tutor Center</h1>
+    <p>Empowering Potential, Securing Futures</p>
+</header>
+
+<section>
+    <h2>Book Tutoring Session</h2>
+    <form id="bookingForm">
+        <label>Select Tutor</label>
+        <select id="tutor">
+            <option>Mathematics Tutor</option>
+            <option>Physics Tutor</option>
+            <option>Chemistry Tutor</option>
+            <option>English Tutor</option>
+            <option>Programming Tutor</option>
+        </select>
+
+        <label>Session Type</label>
+        <select id="sessionType" onchange="toggleAddress()">
+            <option>Online</option>
+            <option>In-Person</option>
+        </select>
+        <script>
+            function toggleAddress() {
+                let sessionType = document.getElementById("sessionType").value;
+                let addressBox  = document.getElementById("addressBox");
+
+                if (sessionType === "In-Person") {
+                    addressBox.style.display = "block";
+                } else {
+                    addressBox.style.display = "none";
+                    document.getElementById("address").value = ""; // clear it when switching back
+                }
+            }
+        </script>
+<!-- Hidden by default -->
+<div id="addressBox" style="display:none;">
+    <label>Your Address</label>
+    <input type="text" id="address" placeholder="Enter your address for in-person session">
+</div>
+        
+        <label>Select Date</label>
+        <input type="date" id="date" required>
+
+        <label>Select Time</label>
+        <input type="time" id="time" required>
+
+        <button type="submit">Book Session</button>
+    </form>
+    <p id="bookingMsg" class="success"></p>
+</section>
+
+
+<section>
+    <h2>Choose Subscription Package</h2>
+
+    <div class="package">
+        <input type="radio" name="package" value="Bronze Package - 500 ETB/month">
+        <div><b>Bronze Package</b><span>Basic Access to Resources — 500 ETB/month</span></div>
+    </div>
+
+    <div class="package">
+        <input type="radio" name="package" value="Silver Package - 1000 ETB/month">
+        <div><b>Silver Package</b><span>Weekly Tutoring Sessions — 1000 ETB/month</span></div>
+    </div>
+
+    <div class="package">
+        <input type="radio" name="package" value="Gold Package - 1500 ETB/month">
+        <div><b>Gold Package</b><span>Priority Tutor Matching — 1500 ETB/month</span></div>
+    </div>
+
+    <div class="package">
+        <input type="radio" name="package" value="Platinum Package - 2500 ETB/month">
+        <div><b>Platinum Package</b><span>Dedicated One-to-One Mentorship — 2500 ETB/month</span></div>
+    </div>
+
+    <button onclick="subscribe()">Subscribe</button>
+    <p id="subscriptionMsg" class="success"></p>
+</section>
+
+<section>
+    <h2>Payment Processing</h2>
+    <label>Select Payment Method</label>
+    <select id="paymentMethod">
+        <option>Telebirr</option>
+        <option>CBE Birr</option>
+        <option>Bank Transfer</option>
+    </select>
+    <button onclick="payNow()">Pay Now</button>
+    <p id="paymentMsg" class="success"></p>
+</section>
+
+<section>
+    <h2>Progress Dashboard</h2>
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <div class="value">12</div>
+            <div class="stat-label">Assignments Completed</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="value">95%</div>
+            <div class="stat-label">Attendance</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="value">88%</div>
+            <div class="stat-label">Average Score</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="value">⭐</div>
+            <div class="stat-label">Excellent Progress</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Temar Lje Tutor Center</p>
+</footer>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let name = document.getElementById("name").value;
+    document.getElementById("registerMsg").innerHTML = "Registration Successful! Welcome, " + name + " 🎉";
+});
+
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let tutor = document.getElementById("tutor").value;
+    let type = document.getElementById("sessionType").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+    document.getElementById("bookingMsg").innerHTML =
+        "Session Booked!<br>Tutor: " + tutor + "<br>Type: " + type + "<br>Date: " + date + "<br>Time: " + time;
+});
+
+function subscribe() {
+    let selected = document.querySelector('input[name="package"]:checked');
+    if (selected) {
+        document.getElementById("subscriptionMsg").innerHTML = "Subscription Activated: " + selected.value;
+    } else {
+        document.getElementById("subscriptionMsg").innerHTML = "Please select a package first.";
+    }
+}
+
+function payNow() {
+    let method = document.getElementById("paymentMethod").value;
+    document.getElementById("paymentMsg").innerHTML = "Payment Successful via " + method + " ✓";
+}
+</script>
+
+</body>
+</html>

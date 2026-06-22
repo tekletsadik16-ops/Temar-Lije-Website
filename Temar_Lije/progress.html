@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress Report - Temar Lije</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url(Images/image5.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    z-index: 1;
+    background:transparent;
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 { font-size: 22px; }
+
+
+nav{
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 50px;
+    padding: 20px;
+    color: white;
+    background:transparent;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+nav h1{
+    margin: 0;
+    padding: 0;
+}
+
+nav a{
+    list-style: none;
+    list-style-type: none;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 5px auto;
+    text-decoration: none;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 20px;
+    border-right: 1px green solid;
+}
+
+nav a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+nav a:hover{
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 
+        0 0 10px green,
+        0 0 60px rgb(3, 73, 3);
+    text-transform: uppercase;
+    transform: translateX(-5px);
+}
+
+nav a:last-child{
+    border-right: none;
+}
+
+section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    border: 1px solid #fff;
+    border-radius: 20px;
+    width: 65%;
+    margin: 30px auto;
+    padding: 30px 40px;
+    color: white;
+}
+
+h2 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.stat-cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 120px;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 1px solid #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    color: lightgreen;
+}
+
+.stat-card .label {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 6px;
+}
+
+
+.subject {
+    margin-bottom: 18px;
+}
+
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+.bar {
+    background: rgba(255,255,255,0.15);
+    height: 14px;
+    border-radius: 20px;
+}
+
+.fill {
+    height: 14px;
+    border-radius: 20px;
+    background: lightgreen;
+    transition: width 1s ease;
+}
+
+.fill.warning { background: orange; }
+.fill.danger  { background: tomato; }
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: rgba(0,100,0,0.4);
+    color: lightgreen;
+    font-size: 13px;
+}
+
+table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    opacity: 0.9;
+}
+
+table tr:hover td {
+    background: rgba(255,255,255,0.07);
+}
+
+.badge {
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge.excellent { background: rgba(0,200,0,0.3);  color: lightgreen; }
+.badge.good      { background: rgba(0,150,255,0.3); color: lightblue; }
+.badge.average   { background: rgba(255,165,0,0.3); color: orange; }
+
+footer {
+    position: relative;
+    z-index: 1;
+    background:transparent;
+    backdrop-filter: blur(2px);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Temar Lije</h2>
+    <nav>
+        <a href="studentlogin.html">Sign In</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="home_page.html">Logout</a>
+    </nav>
+</header>
+
+<section>
+    <h2>Progress Report</h2>
+
+    <div class="stat-cards">
+        <div class="stat-card">
+            <div class="value">18</div>
+            <div class="label">Sessions Completed</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">95%</div>
+            <div class="label">Attendance</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">88%</div>
+            <div class="label">Average Score</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">12</div>
+            <div class="label">Assignments Done</div>
+        </div>
+    </div>
+
+    <h2>Subject Progress</h2>
+
+    <div class="subject">
+        <div class="subject-header">
+            <span>Mathematics</span><span>85%</span>
+        </div>
+        <div class="bar"><div class="fill" style="width:85%"></div></div>
+    </div>
+
+    <div class="subject">
+        <div class="subject-header">
+            <span>Physics</span><span>72%</span>
+        </div>
+        <div class="bar"><div class="fill warning" style="width:72%"></div></div>
+    </div>
+
+    <div class="subject">
+        <div class="subject-header">
+            <span>Chemistry</span><span>90%</span>
+        </div>
+        <div class="bar"><div class="fill" style="width:90%"></div></div>
+    </div>
+
+    <div class="subject">
+        <div class="subject-header">
+            <span>English</span><span>60%</span>
+        </div>
+        <div class="bar"><div class="fill danger" style="width:60%"></div></div>
+    </div>
+
+    <div class="subject">
+        <div class="subject-header">
+            <span>Programming</span><span>95%</span>
+        </div>
+        <div class="bar"><div class="fill" style="width:95%"></div></div>
+    </div>
+
+</section>
+
+<section>
+    <h2>Recent Sessions</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Tutor</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mathematics</td>
+                <td>Mr. Abebe</td>
+                <td>June 18, 2026</td>
+                <td>92%</td>
+                <td><span class="badge excellent">Excellent</span></td>
+            </tr>
+            <tr>
+                <td>Physics</td>
+                <td>Ms. Sara</td>
+                <td>June 15, 2026</td>
+                <td>75%</td>
+                <td><span class="badge good">Good</span></td>
+            </tr>
+            <tr>
+                <td>English</td>
+                <td>Mr. Daniel</td>
+                <td>June 12, 2026</td>
+                <td>63%</td>
+                <td><span class="badge average">Average</span></td>
+            </tr>
+            <tr>
+                <td>Chemistry</td>
+                <td>Ms. Liya</td>
+                <td>June 10, 2026</td>
+                <td>88%</td>
+                <td><span class="badge excellent">Excellent</span></td>
+            </tr>
+            <tr>
+                <td>Programming</td>
+                <td>Mr. Yonas</td>
+                <td>June 8, 2026</td>
+                <td>97%</td>
+                <td><span class="badge excellent">Excellent</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<footer>
+    <p>© 2026 Temar Lje Tutor Center</p>
+</footer>
+
+</body>
+</html>
